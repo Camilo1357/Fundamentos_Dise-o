@@ -2,16 +2,13 @@
 <html lang="es">
 
 <head>
-    <!-- Permite utilizar caracteres como á, é, í, ó, ú y ñ -->
     <meta charset="UTF-8">
 
-    <!-- Hace que la página se adapte correctamente a celulares y tablets -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Nombre que aparecerá en la pestaña del navegador -->
     <title>Mercado VIVA - Iniciar sesión</title>
 
-    <!-- Conectamos nuestro archivo CSS con el HTML -->
+    <!-- Conexión con el CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -25,17 +22,27 @@
 
         <!-- Logo -->
         <div class="logo">
+
             <div class="logo-icon">
                 <span></span>
             </div>
 
             <h2>MERCADO VIVA</h2>
+
         </div>
+
 
         <!-- Botones de la derecha -->
         <div class="nav-buttons">
-    <a href="/crear_cuenta" class="create-button">Crear cuenta</a>
-    <a href="/" class="signin-button">Iniciar sesión</a>
+
+            <a href="/crear_cuenta" class="create-button">
+                Crear cuenta
+            </a>
+
+            <a href="/" class="signin-button">
+                Iniciar sesión
+            </a>
+
         </div>
 
     </header>
@@ -49,8 +56,12 @@
 
         <!-- Imagen del supermercado -->
         <section class="image-section">
-            <img src="{{ url_for('static', filename='supermercado.jpg') }}"
-                 alt="Interior de Mercado VIVA">
+
+            <img
+                src="{{ url_for('static', filename='supermercado.jpg') }}"
+                alt="Interior de Mercado VIVA"
+            >
+
         </section>
 
 
@@ -62,10 +73,13 @@
 
             <!-- Logo pequeño -->
             <div class="small-logo">
+
                 <div class="logo-icon">
                     <span></span>
                 </div>
+
             </div>
+
 
             <!-- Título -->
             <h1>Bienvenido</h1>
@@ -76,9 +90,14 @@
 
 
             <!-- Formulario -->
-            <form id="login-form">
+            <form
+                id="login-form"
+                action="/login"
+                method="POST"
+            >
 
                 <!-- Campo de correo -->
+
                 <div class="input-group">
 
                     <label for="email">
@@ -87,12 +106,12 @@
 
                     <div class="input-container">
 
-                        <!-- Icono sencillo -->
                         <span class="input-icon">✉</span>
 
                         <input
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="name@example.com"
                             required
                         >
@@ -103,6 +122,7 @@
 
 
                 <!-- Campo de contraseña -->
+
                 <div class="input-group">
 
                     <label for="password">
@@ -111,21 +131,23 @@
 
                     <div class="input-container">
 
-                        <!-- Icono de candado -->
                         <span class="input-icon">♧</span>
 
                         <input
                             type="password"
                             id="password"
+                            name="password"
                             placeholder="••••••••"
                             required
                         >
 
                         <!-- Botón para mostrar/ocultar contraseña -->
+
                         <button
                             type="button"
                             id="show-password"
-                            class="password-button">
+                            class="password-button"
+                        >
                             ◉
                         </button>
 
@@ -135,34 +157,39 @@
 
 
                 <!-- Botón principal -->
+
                 <button
                     type="submit"
-                    class="login-button">
-
+                    class="login-button"
+                >
                     Iniciar Sesión
-
                 </button>
 
 
-                <!-- Aquí JavaScript mostrará mensajes -->
+                <!-- Mensajes -->
+
                 <p id="login-result"></p>
 
             </form>
 
 
             <!-- Separador -->
+
             <div class="separator">
                 <span>o</span>
             </div>
 
 
             <!-- Crear cuenta -->
+
             <p class="register-text">
+
                 Nuevo en Mercado VIVA?
 
                 <a href="/crear_cuenta">
                     Crea la cuenta
                 </a>
+
             </p>
 
         </section>
@@ -170,7 +197,8 @@
     </main>
 
 
-    <!-- Conectamos nuestro archivo JavaScript -->
+    <!-- Conexión con JavaScript -->
+
     <script src="{{ url_for('static', filename='app.js') }}"></script>
 
 </body>

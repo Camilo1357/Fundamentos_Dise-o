@@ -67,7 +67,7 @@
             </p>
 
 
-            <form id="create-form">
+            <form id="create-form" action="/registro" method="POST">
 
                 <!-- NOMBRE -->
 
@@ -84,6 +84,7 @@
                         <input
                             type="text"
                             id="nombre"
+                            name="nombre"
                             placeholder="Tu nombre"
                             required
                         >
@@ -108,6 +109,7 @@
                         <input
                             type="email"
                             id="email"
+                            name="email"
                             placeholder="name@example.com"
                             required
                         >
@@ -132,6 +134,7 @@
                         <input
                             type="password"
                             id="password"
+                            name="password"
                             placeholder="••••••••"
                             required
                         >
@@ -175,7 +178,7 @@
 
                 ¿Ya tienes cuenta en Mercado VIVA?
 
-                <a href="#">
+                <a href="/">
                     Inicia sesión
                 </a>
 

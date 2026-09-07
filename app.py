@@ -18,13 +18,17 @@ app = Flask(__name__)
 
 # Flask ejecutará esta función.
 @app.route("/")
-def inicio():
-    return render_template("index.html")
+def login():
+    return render_template("inicio_sesion.html")
 
+@app.route("/crear_cuenta")
+def crear_cuenta():
+    return render_template("crear_cuenta.html")
 
 @app.route("/admin")
 def admin():
     return render_template("admin.html")
+
 
 
 app.run(debug=True)

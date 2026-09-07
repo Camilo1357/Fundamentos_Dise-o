@@ -1,0 +1,391 @@
+/* =========================
+   CONFIGURACIÓN GENERAL
+   ========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7f6;
+    color: #222;
+}
+
+
+/* =========================
+   BARRA DE NAVEGACIÓN
+   ========================= */
+
+.navbar {
+    height: 75px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 60px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.logo h2 {
+    font-size: 21px;
+    letter-spacing: 1px;
+}
+
+
+/* Logo */
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #19a463;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo-icon span {
+    width: 16px;
+    height: 22px;
+    border: 3px solid white;
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+}
+
+
+/* =========================
+   BOTONES DE NAVEGACIÓN
+   ========================= */
+
+.nav-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.nav-buttons button {
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.create-button {
+    background-color: #19a463;
+    color: white;
+    border: 1px solid #19a463;
+}
+
+.create-button:hover {
+    background-color: #148b53;
+}
+
+.signin-button {
+    background-color: white;
+    color: #19a463;
+    border: 1px solid #19a463;
+}
+
+.signin-button:hover {
+    background-color: #f0faf5;
+}
+
+
+/* =========================
+   CONTENIDO PRINCIPAL
+   ========================= */
+
+.main-container {
+    min-height: calc(100vh - 75px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 70px;
+    padding: 50px;
+}
+
+
+/* =========================
+   IMAGEN
+   ========================= */
+
+.image-section {
+    width: 500px;
+    height: 560px;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* =========================
+   TARJETA DE CREAR CUENTA
+   ========================= */
+
+.login-card {
+    width: 430px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================
+   LOGO PEQUEÑO
+   ========================= */
+
+.small-logo {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.small-logo .logo-icon {
+    width: 45px;
+    height: 45px;
+}
+
+
+/* =========================
+   TÍTULO
+   ========================= */
+
+.login-card h1 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================
+   CAMPOS
+   ========================= */
+
+.input-group {
+    margin-bottom: 22px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+
+/* Campo nombre */
+
+.input-name {
+    width: 100%;
+}
+
+.input-name input {
+    width: 100%;
+    height: 45px;
+    border: 1px solid #d5d9d7;
+    border-radius: 8px;
+    padding: 0 14px;
+    font-size: 15px;
+    outline: none;
+}
+
+.input-name input:focus {
+    border-color: #19a463;
+}
+
+
+/* Campo email y contraseña */
+
+.input-container {
+    width: 100%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    border: 1px solid #d5d9d7;
+    border-radius: 8px;
+    padding: 0 12px;
+}
+
+.input-container:focus-within {
+    border-color: #19a463;
+}
+
+.input-icon {
+    margin-right: 10px;
+    color: #777;
+    font-size: 17px;
+}
+
+.input-container input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 15px;
+}
+
+
+/* =========================
+   BOTÓN MOSTRAR CONTRASEÑA
+   ========================= */
+
+.password-button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #777;
+    font-size: 16px;
+}
+
+.password-button:hover {
+    color: #19a463;
+}
+
+
+/* =========================
+   BOTÓN CREAR
+   ========================= */
+
+.login-button {
+    width: 100%;
+    height: 48px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #19a463;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #148b53;
+}
+
+
+/* =========================
+   RESULTADO
+   ========================= */
+
+#create-result {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+
+/* =========================
+   SEPARADOR
+   ========================= */
+
+.separator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 28px 0;
+    color: #999;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #e5e5e5;
+}
+
+.separator span {
+    font-size: 14px;
+}
+
+
+/* =========================
+   TEXTO DE REGISTRO
+   ========================= */
+
+.register-text {
+    text-align: center;
+    color: #777;
+    font-size: 14px;
+}
+
+.register-text a {
+    color: #19a463;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.register-text a:hover {
+    text-decoration: underline;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+
+    .main-container {
+        flex-direction: column;
+        gap: 30px;
+        padding: 30px 20px;
+    }
+
+    .image-section {
+        width: 100%;
+        max-width: 500px;
+        height: 350px;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 430px;
+    }
+
+    .navbar {
+        padding: 0 20px;
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    .navbar {
+        height: auto;
+        padding: 15px 20px;
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    .nav-buttons {
+        width: 100%;
+    }
+
+    .nav-buttons button {
+        width: 50%;
+    }
+
+    .image-section {
+        height: 250px;
+    }
+
+    .login-card {
+        padding: 30px 22px;
+    }
+}

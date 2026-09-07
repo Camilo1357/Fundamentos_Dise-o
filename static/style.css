@@ -134,7 +134,7 @@ body {
 }
 
 
-.nav-buttons button {
+.nav-buttons a {
     padding: 9px 16px;
 
     border-radius: 20px;

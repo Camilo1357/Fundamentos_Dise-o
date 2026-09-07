@@ -375,3 +375,10 @@ El proceso permitirá:
 **Cliente solicita devolución → Sistema valida → Se genera código → Empleado consulta → Se verifica producto → Se completa o rechaza devolución → Cliente consulta estado.**
 
 El MVP busca reducir el trabajo manual, disminuir el tiempo de atención y mejorar la experiencia del cliente sin modificar completamente la operación de Mercado VIVA.
+
+
+
+
+
+Installar extensiones "pip install supabase"
+Installar "pip install supabase python-dotenv fastapi uvicorn"

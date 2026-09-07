@@ -29,6 +29,9 @@ def crear_cuenta():
 def admin():
     return render_template("admin.html")
 
+@app.route("/historial")
+def historial():
+    return render_template("historial.html")
 
 
 app.run(debug=True)

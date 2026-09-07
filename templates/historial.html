@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mercado VIVA - Historial de pedidos</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='historial.css') }}">
+
+</head>
+
+<body>
+
+
+    <!-- =========================
+         NAVBAR
+         ========================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <span></span>
+            </div>
+
+            <h2>MERCADO VIVA</h2>
+
+        </div>
+
+
+        <!-- Usuario -->
+        <div class="user-menu">
+
+            <div class="user-circle">
+                ML
+            </div>
+
+            <span id="user-name">
+                Usuario
+            </span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =========================
+         CONTENIDO
+         ========================= -->
+
+    <main class="main-container">
+
+
+        <!-- =========================
+             TÍTULO
+             ========================= -->
+
+        <section class="page-header">
+
+            <h1>Historial de Pedidos</h1>
+
+            <p>
+                Revisa el estado de tus pedidos y solicita devoluciones
+            </p>
+
+        </section>
+
+
+
+        <!-- =========================
+             CONTENIDO PRINCIPAL
+             ========================= -->
+
+        <section class="orders-container">
+
+
+            <!-- =========================
+                 LISTA DE PEDIDOS
+                 ========================= -->
+
+            <div class="orders-section">
+
+                <div id="orders-list">
+
+                    <!--
+                    Los pedidos serán agregados
+                    dinámicamente mediante JavaScript.
+
+                    No colocamos pedidos de ejemplo aquí.
+                    -->
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================
+                 DETALLE DEL PEDIDO
+                 ========================= -->
+
+            <aside class="order-detail" id="order-detail">
+
+                <div class="detail-placeholder">
+
+                    <h2>Detalle del Pedido</h2>
+
+                    <p>
+                        Selecciona un pedido para consultar sus detalles.
+                    </p>
+
+                </div>
+
+            </aside>
+
+
+        </section>
+
+    </main>
+
+
+
+    <script src="{{ url_for('static', filename='historial.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,39 +1,16 @@
-// =========================================
-// ELEMENTOS DEL HTML
-// =========================================
-
-const formulario = document.getElementById("create-form");
-
-const nombre = document.getElementById("nombre");
-
-const email = document.getElementById("email");
-
 const password = document.getElementById("password");
+const botonPassword = document.getElementById("show-password");
 
-const resultado = document.getElementById("create-result");
+botonPassword.addEventListener("click", function () {
 
+    if (password.type === "password") {
 
-// =========================================
-// CREAR CUENTA
-// =========================================
+        password.type = "text";
 
-formulario.addEventListener("submit", function(event) {
+    } else {
 
-    // Evita que el formulario recargue la página
-    event.preventDefault();
+        password.type = "password";
 
-
-    // Comprobamos los datos
-    if (password.value.length < 8) {
-
-        resultado.textContent = "La contraseña debe tener mínimo 8 caracteres";
-
-        return;
     }
-
-
-    // Por ahora solo mostramos los datos
-    resultado.textContent =
-        `Cuenta preparada para ${nombre.value} (${email.value})`;
 
 });

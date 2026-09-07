@@ -7,19 +7,16 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mercado VIVA - Historial de pedidos</title>
+    <title>Mercado VIVA - Historial</title>
 
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='historial.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
 
 </head>
 
 <body>
-
-
-    <!-- =========================
-         NAVBAR
-         ========================= -->
 
     <header class="navbar">
 
@@ -34,97 +31,61 @@
         </div>
 
 
-        <!-- Usuario -->
-        <div class="user-menu">
+        <div class="nav-buttons">
 
-            <div class="user-circle">
-                ML
-            </div>
+            <a href="/cliente" class="create-button">
+                Inicio
+            </a>
 
-            <span id="user-name">
-                Usuario
-            </span>
+            <a href="/logout" class="signin-button">
+                Cerrar sesión
+            </a>
 
         </div>
 
     </header>
 
 
+    <main class="history-container">
 
-    <!-- =========================
-         CONTENIDO
-         ========================= -->
-
-    <main class="main-container">
-
-
-        <!-- =========================
-             TÍTULO
-             ========================= -->
-
-        <section class="page-header">
-
-            <h1>Historial de Pedidos</h1>
-
-            <p>
-                Revisa el estado de tus pedidos y solicita devoluciones
-            </p>
-
-        </section>
+        <h1>
+            Historial de pedidos
+        </h1>
 
 
+        <div class="history-content">
 
-        <!-- =========================
-             CONTENIDO PRINCIPAL
-             ========================= -->
+            <section id="orders-list">
 
-        <section class="orders-container">
+                <!-- JavaScript cargará los pedidos aquí -->
 
-
-            <!-- =========================
-                 LISTA DE PEDIDOS
-                 ========================= -->
-
-            <div class="orders-section">
-
-                <div id="orders-list">
-
-                    <!--
-                    Los pedidos serán agregados
-                    dinámicamente mediante JavaScript.
-
-                    No colocamos pedidos de ejemplo aquí.
-                    -->
-
-                </div>
-
-            </div>
+            </section>
 
 
+            <section id="order-detail">
 
-            <!-- =========================
-                 DETALLE DEL PEDIDO
-                 ========================= -->
+                <div class="no-orders">
 
-            <aside class="order-detail" id="order-detail">
+                    <div class="no-orders-icon">
+                        ◇
+                    </div>
 
-                <div class="detail-placeholder">
-
-                    <h2>Detalle del Pedido</h2>
+                    <h2>
+                        Selecciona un pedido
+                    </h2>
 
                     <p>
-                        Selecciona un pedido para consultar sus detalles.
+                        Selecciona uno de tus pedidos
+                        para ver sus detalles.
                     </p>
 
                 </div>
 
-            </aside>
+            </section>
 
-
-        </section>
+        </div>
 
     </main>
-
 
 
     <script src="{{ url_for('static', filename='historial.js') }}"></script>

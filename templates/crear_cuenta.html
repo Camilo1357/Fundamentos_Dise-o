@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <title>Mercado VIVA - Crear cuenta</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
 </head>
 
 <body>
@@ -18,16 +20,26 @@
     <header class="navbar">
 
         <div class="logo">
+
             <div class="logo-icon">
                 <span></span>
             </div>
 
             <h2>MERCADO VIVA</h2>
+
         </div>
 
+
         <div class="nav-buttons">
-            <a href="/crear_cuenta" class="create-button">Crear cuenta</a>
-            <a href="/" class="signin-button">Iniciar sesión</a>
+
+            <a href="/crear_cuenta" class="create-button">
+                Crear cuenta
+            </a>
+
+            <a href="/" class="signin-button">
+                Iniciar sesión
+            </a>
+
         </div>
 
     </header>
@@ -67,7 +79,11 @@
             </p>
 
 
-            <form id="create-form" action="/registro" method="POST">
+            <form
+                id="create-form"
+                action="/registro"
+                method="POST"
+            >
 
                 <!-- NOMBRE -->
 
@@ -142,7 +158,8 @@
                         <button
                             type="button"
                             id="show-password"
-                            class="password-button">
+                            class="password-button"
+                        >
                             ◉
                         </button>
 
@@ -155,10 +172,9 @@
 
                 <button
                     type="submit"
-                    class="login-button">
-
+                    class="login-button"
+                >
                     Crear cuenta
-
                 </button>
 
 
@@ -170,9 +186,13 @@
             <!-- SEPARADOR -->
 
             <div class="separator">
+
                 <span>o</span>
+
             </div>
 
+
+            <!-- LOGIN -->
 
             <p class="register-text">
 
@@ -188,6 +208,8 @@
 
     </main>
 
+
+    <!-- JAVASCRIPT -->
 
     <script src="{{ url_for('static', filename='crear_cuenta.js') }}"></script>
 

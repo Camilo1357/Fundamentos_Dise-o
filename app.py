@@ -1,21 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-
 from database.supabase import supabase
-
-
-# ==================================================
-# CONFIGURACIÓN DE FLASK
-# ==================================================
 
 app = Flask(__name__)
 
-# Necesario para manejar sesiones
 app.secret_key = "clave_secreta_mercadoviva_app"
 
 
-# ==================================================
-# RUTAS DE NAVEGACIÓN
-# ==================================================
+# =========================
+# PÁGINAS
+# =========================
 
 @app.route("/")
 def inicio():
@@ -29,7 +22,7 @@ def crear_cuenta():
 
 @app.route("/cliente")
 def cliente_view():
-    return render_template("index.html")
+    return render_template("historial.html")
 
 
 @app.route("/admin")
@@ -39,12 +32,15 @@ def admin_view():
 
 @app.route("/historial")
 def historial():
+    if "user_id" not in session:
+        return redirect(url_for("inicio"))
+
     return render_template("historial.html")
 
 
-# ==================================================
-# AUTENTICACIÓN - LOGIN
-# ==================================================
+# =========================
+# INICIAR SESIÓN
+# =========================
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -54,17 +50,17 @@ def login():
 
     try:
 
-        # Validar credenciales con Supabase Auth
+        # Iniciar sesión en Supabase
         auth_response = supabase.auth.sign_in_with_password({
             "email": email,
             "password": password
         })
 
+        # Obtener ID del usuario
         user_id = auth_response.user.id
 
-        # Guardamos el usuario en la sesión
+        # Guardar usuario en la sesión
         session["user_id"] = user_id
-
 
         # Verificar si es administrador
         admin_check = (
@@ -75,26 +71,29 @@ def login():
             .execute()
         )
 
-
+        # Si es administrador
         if admin_check.data and len(admin_check.data) > 0:
 
             return redirect(url_for("admin_view"))
 
+        # Si es cliente
         else:
 
             return redirect(url_for("cliente_view"))
 
-
     except Exception as e:
 
-        print(f"Error al iniciar sesión: {e}")
+        print("================================")
+        print("ERROR AL INICIAR SESIÓN")
+        print(e)
+        print("================================")
 
         return redirect(url_for("inicio"))
 
 
-# ==================================================
-# REGISTRO
-# ==================================================
+# =========================
+# CREAR CUENTA
+# =========================
 
 @app.route("/registro", methods=["POST"])
 def register():
@@ -102,7 +101,6 @@ def register():
     nombre = request.form.get("nombre")
     email = request.form.get("email")
     password = request.form.get("password")
-
 
     try:
 
@@ -112,31 +110,30 @@ def register():
             "password": password
         })
 
-
         user_id = auth_response.user.id
 
-
-        # Crear cliente en nuestra tabla
+        # Crear registro del cliente
         supabase.table("cliente").insert({
             "id_cliente": user_id,
             "nombre": nombre,
             "email": email
         }).execute()
 
-
         return redirect(url_for("inicio"))
-
 
     except Exception as e:
 
-        print(f"Error en el registro: {e}")
+        print("================================")
+        print("ERROR EN EL REGISTRO")
+        print(e)
+        print("================================")
 
         return redirect(url_for("crear_cuenta"))
 
 
-# ==================================================
+# =========================
 # CERRAR SESIÓN
-# ==================================================
+# =========================
 
 @app.route("/logout")
 def logout():
@@ -146,10 +143,9 @@ def logout():
     return redirect(url_for("inicio"))
 
 
-# ==================================================
-# INICIAR SERVIDOR
-# ==================================================
+# =========================
+# EJECUTAR SERVIDOR
+# =========================
 
 if __name__ == "__main__":
-
     app.run(debug=True)

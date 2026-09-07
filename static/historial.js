@@ -1,34 +1,23 @@
-// =========================================
-// ELEMENTOS DEL HTML
-// =========================================
-
 const ordersList = document.getElementById("orders-list");
-
 const orderDetail = document.getElementById("order-detail");
 
 
-// =========================================
+// ==================================================
 // MOSTRAR PEDIDOS
-// =========================================
+// ==================================================
 
 function mostrarPedidos(pedidos) {
 
-    // Limpiamos la lista
     ordersList.innerHTML = "";
 
 
-    // =====================================
-    // NO HAY PEDIDOS
-    // =====================================
-
+    // Si no hay pedidos
     if (pedidos.length === 0) {
 
         ordersList.innerHTML = `
             <div class="no-orders">
 
-                <div class="no-orders-icon">
-                    ◇
-                </div>
+                <div class="no-orders-icon">◇</div>
 
                 <h2>No tienes pedidos todavía</h2>
 
@@ -44,10 +33,7 @@ function mostrarPedidos(pedidos) {
     }
 
 
-    // =====================================
-    // HAY PEDIDOS
-    // =====================================
-
+    // Mostrar pedidos
     pedidos.forEach(pedido => {
 
         const tarjeta = document.createElement("div");
@@ -65,24 +51,29 @@ function mostrarPedidos(pedidos) {
             <div class="order-info">
 
                 <div class="order-id">
-                    ${pedido.id}
+                    Pedido #${pedido.id_compra}
                 </div>
 
                 <div class="order-meta">
-                    ${pedido.fecha} ·
-                    ${pedido.productos} productos
+
+                    ${pedido.fecha_compra}
+
                 </div>
 
             </div>
 
 
             <div class="order-price">
+
                 $${pedido.total}
+
             </div>
 
 
             <div class="order-status">
+
                 ${pedido.estado}
+
             </div>
 
 
@@ -93,8 +84,7 @@ function mostrarPedidos(pedidos) {
         `;
 
 
-        // Cuando se selecciona un pedido
-        tarjeta.addEventListener("click", function() {
+        tarjeta.addEventListener("click", function () {
 
             mostrarDetalle(pedido);
 
@@ -108,22 +98,21 @@ function mostrarPedidos(pedidos) {
 }
 
 
-
-// =========================================
-// MOSTRAR DETALLE DEL PEDIDO
-// =========================================
+// ==================================================
+// MOSTRAR DETALLE
+// ==================================================
 
 function mostrarDetalle(pedido) {
 
     orderDetail.innerHTML = `
 
         <h2 class="detail-title">
-            Detalle del Pedido ${pedido.id}
+            Detalle del Pedido #${pedido.id_compra}
         </h2>
 
 
         <p class="detail-date">
-            Realizado el ${pedido.fecha}
+            Realizado el ${pedido.fecha_compra}
         </p>
 
 
@@ -131,11 +120,34 @@ function mostrarDetalle(pedido) {
 
 
         <p class="products-title">
-            PRODUCTOS
+            INFORMACIÓN DEL PEDIDO
         </p>
 
 
-        <div id="products-list"></div>
+        <div class="product-row">
+
+            <span class="product-name">
+                Canal
+            </span>
+
+            <span class="product-price">
+                ${pedido.canal}
+            </span>
+
+        </div>
+
+
+        <div class="product-row">
+
+            <span class="product-name">
+                Estado
+            </span>
+
+            <span class="product-price">
+                ${pedido.estado}
+            </span>
+
+        </div>
 
 
         <div class="total-row">
@@ -151,52 +163,72 @@ function mostrarDetalle(pedido) {
         </div>
 
 
-        <button class="return-button">
+        <button
+            class="return-button"
+            onclick="solicitarDevolucion(${pedido.id_compra})"
+        >
             Solicitar Devolución
         </button>
 
     `;
 
-
-    // =====================================
-    // LISTA DE PRODUCTOS
-    // =====================================
-
-    const productsList =
-        document.getElementById("products-list");
+}
 
 
-    pedido.listaProductos.forEach(producto => {
+// ==================================================
+// SOLICITAR DEVOLUCIÓN
+// ==================================================
 
-        const productoHTML =
-            document.createElement("div");
+function solicitarDevolucion(idCompra) {
 
+    console.log("Solicitar devolución de:", idCompra);
 
-        productoHTML.classList.add("product-row");
-
-
-        productoHTML.innerHTML = `
-
-            <span class="product-name">
-
-                ${producto.nombre}
-
-                <span class="product-quantity">
-                    x${producto.cantidad}
-                </span>
-
-            </span>
-
-
-            <span class="product-price">
-                $${producto.precio}
-            </span>
-
-        `;
-
-
-        productsList.appendChild(productoHTML);
-
-    });
+    // Aquí posteriormente conectaremos
+    // la API de solicitudes de devolución.
 
 }
+
+
+// ==================================================
+// CONSULTAR PEDIDOS EN EL BACKEND
+// ==================================================
+
+fetch("/api/pedidos")
+
+    .then(response => {
+
+        if (!response.ok) {
+
+            throw new Error("No se pudieron obtener los pedidos");
+
+        }
+
+        return response.json();
+
+    })
+
+    .then(data => {
+
+        mostrarPedidos(data);
+
+    })
+
+    .catch(error => {
+
+        console.error("Error:", error);
+
+        ordersList.innerHTML = `
+            <div class="no-orders">
+
+                <h2>
+                    No se pudieron cargar los pedidos
+                </h2>
+
+                <p>
+                    Intenta nuevamente más tarde.
+                </p>
+
+            </div>
+        `;
+
+    });

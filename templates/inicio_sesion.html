@@ -2,117 +2,108 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
 
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Mercado VIVA - Iniciar sesión</title>
+    <title>Iniciar sesión - Mercado VIVA</title>
 
-    <!-- Conexión con el CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
 </head>
 
 <body>
 
-    <!-- =========================
-         BARRA DE NAVEGACIÓN
-         ========================= -->
+    <!-- NAVBAR -->
 
-    <header class="navbar">
+    <nav class="navbar">
 
-        <!-- Logo -->
         <div class="logo">
 
-            <div class="logo-icon">
-                <span></span>
-            </div>
+            <div class="logo-icon"></div>
 
-            <h2>MERCADO VIVA</h2>
+            <h2>Mercado VIVA</h2>
 
         </div>
 
 
-        <!-- Botones de la derecha -->
         <div class="nav-buttons">
 
-            <a href="/crear_cuenta" class="create-button">
+            <a
+                href="/crear_cuenta"
+                class="create-button"
+            >
                 Crear cuenta
             </a>
 
-            <a href="/" class="signin-button">
+            <a
+                href="/"
+                class="signin-button"
+            >
                 Iniciar sesión
             </a>
 
         </div>
 
-    </header>
+    </nav>
 
 
-    <!-- =========================
-         CONTENIDO PRINCIPAL
-         ========================= -->
+    <!-- CONTENIDO -->
 
     <main class="main-container">
 
-        <!-- Imagen del supermercado -->
         <section class="image-section">
 
             <img
                 src="{{ url_for('static', filename='supermercado.jpg') }}"
-                alt="Interior de Mercado VIVA"
+                alt="Mercado VIVA"
             >
 
         </section>
 
 
-        <!-- =========================
-             FORMULARIO DE LOGIN
-             ========================= -->
-
         <section class="login-card">
 
-            <!-- Logo pequeño -->
             <div class="small-logo">
 
-                <div class="logo-icon">
-                    <span></span>
-                </div>
+                <div class="logo-icon"></div>
 
             </div>
 
 
-            <!-- Título -->
             <h1>Bienvenido</h1>
 
             <p class="subtitle">
-                Inicia sesión para comprar en Mercado VIVA
+                Inicia sesión para continuar
             </p>
 
 
-            <!-- Formulario -->
+            <!-- LOGIN -->
+
             <form
-                id="login-form"
                 action="/login"
                 method="POST"
+                id="login-form"
             >
 
-                <!-- Campo de correo -->
+                <!-- CORREO -->
 
                 <div class="input-group">
 
                     <label for="email">
-                        Email
+                        CORREO ELECTRÓNICO
                     </label>
 
                     <div class="input-container">
-
-                        <span class="input-icon">✉</span>
 
                         <input
                             type="email"
                             id="email"
                             name="email"
-                            placeholder="name@example.com"
+                            placeholder="Tu correo electrónico"
                             required
                         >
 
@@ -121,34 +112,29 @@
                 </div>
 
 
-                <!-- Campo de contraseña -->
+                <!-- CONTRASEÑA -->
 
                 <div class="input-group">
 
                     <label for="password">
-                        Contraseña
+                        CONTRASEÑA
                     </label>
 
                     <div class="input-container">
-
-                        <span class="input-icon">♧</span>
 
                         <input
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="••••••••"
+                            placeholder="Tu contraseña"
                             required
                         >
-
-                        <!-- Botón para mostrar/ocultar contraseña -->
 
                         <button
                             type="button"
                             id="show-password"
-                            class="password-button"
                         >
-                            ◉
+                            Mostrar
                         </button>
 
                     </div>
@@ -156,38 +142,43 @@
                 </div>
 
 
-                <!-- Botón principal -->
+                <!-- OLVIDÓ CONTRASEÑA -->
+
+                <div class="forgot-password">
+
+                    <a href="#">
+                        ¿Olvidaste tu contraseña?
+                    </a>
+
+                </div>
+
+
+                <!-- BOTÓN -->
 
                 <button
                     type="submit"
                     class="login-button"
                 >
-                    Iniciar Sesión
+                    Iniciar sesión
                 </button>
 
 
-                <!-- Mensajes -->
+                <!-- RESULTADO -->
 
                 <p id="login-result"></p>
 
             </form>
 
 
-            <!-- Separador -->
+            <div class="separator"></div>
 
-            <div class="separator">
-                <span>o</span>
-            </div>
-
-
-            <!-- Crear cuenta -->
 
             <p class="register-text">
 
-                Nuevo en Mercado VIVA?
+                ¿No tienes una cuenta?
 
                 <a href="/crear_cuenta">
-                    Crea la cuenta
+                    Crear cuenta
                 </a>
 
             </p>
@@ -197,9 +188,11 @@
     </main>
 
 
-    <!-- Conexión con JavaScript -->
+    <!-- JAVASCRIPT -->
 
-    <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='app.js') }}"
+    ></script>
 
 </body>
 

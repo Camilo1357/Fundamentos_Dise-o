@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <!-- Permite utilizar caracteres como á, é, í, ó, ú y ñ -->
+    <meta charset="UTF-8">
+
+    <!-- Hace que la página se adapte correctamente a celulares y tablets -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Nombre que aparecerá en la pestaña del navegador -->
+    <title>Mercado VIVA - Iniciar sesión</title>
+
+    <!-- Conectamos nuestro archivo CSS con el HTML -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <!-- =========================
+         BARRA DE NAVEGACIÓN
+         ========================= -->
+
+    <header class="navbar">
+
+        <!-- Logo -->
+        <div class="logo">
+            <div class="logo-icon">
+                <span></span>
+            </div>
+
+            <h2>MERCADO VIVA</h2>
+        </div>
+
+        <!-- Opciones del menú -->
+        <nav>
+            <a href="#">Shop</a>
+            <a href="#">Weekly deals</a>
+            <a href="#">Stores</a>
+            <a href="#">Help</a>
+        </nav>
+
+        <!-- Botones de la derecha -->
+        <div class="nav-buttons">
+            <button class="create-button">Create account</button>
+            <button class="signin-button">Sign in</button>
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         CONTENIDO PRINCIPAL
+         ========================= -->
+
+    <main class="main-container">
+
+        <!-- Imagen del supermercado -->
+        <section class="image-section">
+            <img src="{{ url_for('static', filename='supermercado.jpg') }}"
+                 alt="Interior de Mercado VIVA">
+        </section>
+
+
+        <!-- =========================
+             FORMULARIO DE LOGIN
+             ========================= -->
+
+        <section class="login-card">
+
+            <!-- Logo pequeño -->
+            <div class="small-logo">
+                <div class="logo-icon">
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Título -->
+            <h1>Welcome back</h1>
+
+            <p class="subtitle">
+                Sign in to your Mercado VIVA account to continue shopping.
+            </p>
+
+
+            <!-- Formulario -->
+            <form id="login-form">
+
+                <!-- Campo de correo -->
+                <div class="input-group">
+
+                    <label for="email">
+                        Email Address
+                    </label>
+
+                    <div class="input-container">
+
+                        <!-- Icono sencillo -->
+                        <span class="input-icon">✉</span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="name@example.com"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- Campo de contraseña -->
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-container">
+
+                        <!-- Icono de candado -->
+                        <span class="input-icon">♧</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            placeholder="••••••••"
+                            required
+                        >
+
+                        <!-- Botón para mostrar/ocultar contraseña -->
+                        <button
+                            type="button"
+                            id="show-password"
+                            class="password-button">
+                            ◉
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Recuperar contraseña -->
+                <div class="forgot-container">
+                    <a href="#">Forgot password?</a>
+                </div>
+
+
+                <!-- Botón principal -->
+                <button
+                    type="submit"
+                    class="login-button">
+
+                    Sign In
+
+                </button>
+
+
+                <!-- Aquí JavaScript mostrará mensajes -->
+                <p id="login-result"></p>
+
+            </form>
+
+
+            <!-- Separador -->
+            <div class="separator">
+                <span>or</span>
+            </div>
+
+
+            <!-- Crear cuenta -->
+            <p class="register-text">
+                New to Mercado VIVA?
+
+                <a href="#">
+                    Create account
+                </a>
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- Conectamos nuestro archivo JavaScript -->
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+
+</body>
+
+</html>

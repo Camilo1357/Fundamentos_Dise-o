@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mercado VIVA - Administrador</title>
+
+    <!-- Conectamos el CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin.css') }}">
+</head>
+
+
+<body>
+
+
+    <!-- ==================================================
+         BARRA SUPERIOR
+         ================================================== -->
+
+    <header class="navbar">
+
+        <!-- Logo y nombre -->
+        <div class="logo">
+
+            <div class="logo-icon">
+                <span></span>
+            </div>
+
+            <h2>MERCADO VIVA</h2>
+
+            <span class="admin-badge">
+                ADMIN Panel
+            </span>
+
+        </div>
+
+
+        <!-- Usuario -->
+        <div class="admin-user">
+
+            <div class="user-circle">
+                AV
+            </div>
+
+            <span>
+                Admin Vista
+            </span>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- ==================================================
+         CONTENIDO PRINCIPAL
+         ================================================== -->
+
+    <main class="main-container">
+
+
+        <h1>
+            Solicitudes de Devolución
+        </h1>
+
+
+        <div class="content">
+
+
+            <!-- ==================================================
+                 PARTE IZQUIERDA
+                 LISTA DE SOLICITUDES
+                 ================================================== -->
+
+            <section class="requests-section">
+
+                <!-- Encabezados de la tabla -->
+                <div class="table-header">
+
+                    <span>ID Solicitud</span>
+
+                    <span>Fecha</span>
+
+                    <span>Cliente</span>
+
+                    <span>Producto</span>
+
+                    <span>Motivo</span>
+
+                </div>
+
+
+                <!--
+
+                    JavaScript va a introducir aquí
+                    todas las solicitudes pendientes.
+
+                -->
+
+                <div id="requests-list"></div>
+
+
+                <!-- Mensaje que aparecerá cuando
+                     no queden solicitudes -->
+
+                <div
+                    id="empty-message"
+                    class="empty-message hidden">
+
+                    <div class="empty-icon">
+                        ✓
+                    </div>
+
+                    <p>
+                        No hay solicitudes pendientes.
+                    </p>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- ==================================================
+                 PARTE DERECHA
+                 DETALLE DE LA SOLICITUD
+                 ================================================== -->
+
+            <section class="detail-card">
+
+                <h2>
+                    Detalle de Solicitud
+                </h2>
+
+                <p class="detail-description">
+                    Estructura de inspección física y resolución.
+                </p>
+
+
+                <!-- Aquí aparecerá la información -->
+                <div id="detail-content">
+
+                    <div class="no-selection">
+
+                        <div class="selection-icon">
+                            ▣
+                        </div>
+
+                        <p>
+                            Selecciona una solicitud para ver
+                            los detalles estructurales.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='admin.js') }}"></script>
+
+</body>
+
+</html>

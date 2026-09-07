@@ -1,0 +1,544 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
+
+/* Quitamos márgenes y espacios predeterminados */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Configuración general de la página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafaf7;
+    color: #183f35;
+}
+
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+.navbar {
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 80px;
+
+    background-color: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+/* Parte izquierda de la navbar */
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    flex: 1;
+}
+
+
+/* Nombre Mercado VIVA */
+.logo h2 {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+
+/* =========================================
+   LOGO
+   ========================================= */
+
+.logo-icon {
+    width: 30px;
+    height: 30px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Cuerpo del logo */
+.logo-icon::before {
+    content: "";
+
+    width: 15px;
+    height: 18px;
+
+    background-color: #e85535;
+
+    border-radius: 50% 50% 45% 45%;
+}
+
+
+/* Hoja del logo */
+.logo-icon::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 4px;
+
+    background-color: #4c9a62;
+
+    top: 2px;
+    right: 4px;
+
+    border-radius: 100% 0;
+}
+
+
+/* =========================================
+   MENÚ
+   ========================================= */
+
+.navbar nav {
+    display: flex;
+
+    gap: 28px;
+}
+
+
+.navbar nav a {
+    text-decoration: none;
+
+    color: #111111;
+
+    font-size: 12px;
+}
+
+
+/* =========================================
+   BOTONES NAVBAR
+   ========================================= */
+
+.nav-buttons {
+    display: flex;
+
+    gap: 10px;
+
+    margin-left: 40px;
+}
+
+
+.nav-buttons button {
+    padding: 9px 16px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+.create-button {
+    background-color: white;
+
+    border: 1px solid #dddddd;
+
+    color: #222222;
+}
+
+
+.signin-button {
+    background-color: #195544;
+
+    border: 1px solid #195544;
+
+    color: white;
+}
+
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
+
+.main-container {
+
+    max-width: 805px;
+
+    margin: 48px auto 60px;
+
+    display: flex;
+
+    align-items: center;
+
+    position: relative;
+}
+
+
+/* =========================================
+   IMAGEN
+   ========================================= */
+
+.image-section {
+
+    width: 430px;
+    height: 484px;
+
+    overflow: hidden;
+
+    border-radius: 0 18px 18px 18px;
+
+    z-index: 1;
+}
+
+
+.image-section img {
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+/* =========================================
+   TARJETA DE LOGIN
+   ========================================= */
+
+.login-card {
+
+    width: 348px;
+
+    min-height: 390px;
+
+    background-color: white;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 16px;
+
+    padding: 35px 26px;
+
+    position: relative;
+
+    margin-left: -2px;
+
+    z-index: 2;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* Logo pequeño */
+.small-logo {
+
+    display: flex;
+
+    justify-content: center;
+
+    margin-bottom: 10px;
+}
+
+
+/* Título */
+.login-card h1 {
+
+    text-align: center;
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+
+/* Texto debajo del título */
+.subtitle {
+
+    text-align: center;
+
+    font-size: 10px;
+
+    color: #737373;
+
+    margin-bottom: 20px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   INPUTS
+   ========================================= */
+
+.input-group {
+
+    margin-bottom: 15px;
+}
+
+
+.input-group label {
+
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    color: #333333;
+
+    margin-bottom: 7px;
+}
+
+
+/* Contenedor del input + icono */
+.input-container {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+}
+
+
+/* Icono */
+.input-icon {
+
+    position: absolute;
+
+    left: 12px;
+
+    color: #68737a;
+
+    font-size: 14px;
+}
+
+
+/* Campo de texto */
+.input-container input {
+
+    width: 100%;
+
+    height: 35px;
+
+    border: 1px solid #e0e0e0;
+
+    border-radius: 10px;
+
+    padding: 0 38px;
+
+    outline: none;
+
+    font-size: 11px;
+}
+
+
+/* Cuando hacemos click dentro del input */
+.input-container input:focus {
+
+    border-color: #195544;
+}
+
+
+/* =========================================
+   MOSTRAR CONTRASEÑA
+   ========================================= */
+
+.password-button {
+
+    position: absolute;
+
+    right: 10px;
+
+    background: none;
+
+    border: none;
+
+    cursor: pointer;
+
+    color: #68737a;
+}
+
+
+/* =========================================
+   FORGOT PASSWORD
+   ========================================= */
+
+.forgot-container {
+
+    text-align: right;
+
+    margin-top: -5px;
+
+    margin-bottom: 15px;
+}
+
+
+.forgot-container a {
+
+    color: #16704f;
+
+    text-decoration: none;
+
+    font-size: 10px;
+}
+
+
+/* =========================================
+   BOTÓN LOGIN
+   ========================================= */
+
+.login-button {
+
+    width: 100%;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #195544;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* Efecto cuando pasamos el mouse */
+.login-button:hover {
+
+    background-color: #124436;
+}
+
+
+/* =========================================
+   MENSAJE JAVASCRIPT
+   ========================================= */
+
+#login-result {
+
+    text-align: center;
+
+    font-size: 10px;
+
+    margin-top: 10px;
+}
+
+
+/* =========================================
+   SEPARADOR
+   ========================================= */
+
+.separator {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin: 17px 0;
+
+    color: #999999;
+
+    font-size: 10px;
+}
+
+
+.separator::before,
+.separator::after {
+
+    content: "";
+
+    height: 1px;
+
+    background-color: #eeeeee;
+
+    flex: 1;
+}
+
+
+/* =========================================
+   CREAR CUENTA
+   ========================================= */
+
+.register-text {
+
+    text-align: center;
+
+    color: #737373;
+
+    font-size: 10px;
+}
+
+
+.register-text a {
+
+    color: #16704f;
+
+    font-weight: bold;
+
+    text-decoration: none;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+/* Cuando la pantalla sea pequeña */
+@media (max-width: 800px) {
+
+    .navbar {
+
+        padding: 0 20px;
+    }
+
+
+    .navbar nav {
+
+        display: none;
+    }
+
+
+    .nav-buttons {
+
+        margin-left: auto;
+    }
+
+
+    .main-container {
+
+        margin: 30px 20px;
+
+        display: block;
+    }
+
+
+    .image-section {
+
+        display: none;
+    }
+
+
+    .login-card {
+
+        width: 100%;
+
+        max-width: 400px;
+
+        margin: auto;
+    }
+}

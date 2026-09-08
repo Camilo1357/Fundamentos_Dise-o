@@ -8,13 +8,13 @@ botonPassword.addEventListener("click", function () {
 
         password.type = "text";
 
-        botonPassword.textContent = "Ocultar";
+        botonPassword.textContent = "◎";
 
     } else {
 
         password.type = "password";
 
-        botonPassword.textContent = "Mostrar";
+        botonPassword.textContent = "◉";
 
     }
 

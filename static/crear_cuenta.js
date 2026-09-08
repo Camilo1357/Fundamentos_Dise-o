@@ -7,9 +7,13 @@ botonPassword.addEventListener("click", function () {
 
         password.type = "text";
 
+        botonPassword.textContent = "◎";
+
     } else {
 
         password.type = "password";
+
+        botonPassword.textContent = "◉";
 
     }
 

@@ -83,11 +83,6 @@ def login():
 
     except Exception as e:
 
-        print("================================")
-        print("ERROR AL INICIAR SESIÓN")
-        print(e)
-        print("================================")
-
         return redirect(url_for("inicio"))
 
 
@@ -122,12 +117,7 @@ def register():
         return redirect(url_for("inicio"))
 
     except Exception as e:
-
-        print("================================")
-        print("ERROR EN EL REGISTRO")
-        print(e)
-        print("================================")
-
+        
         return redirect(url_for("crear_cuenta"))
 
 

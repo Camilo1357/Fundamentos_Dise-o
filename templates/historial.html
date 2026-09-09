@@ -5,7 +5,10 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Mercado VIVA - Historial</title>
 
@@ -16,7 +19,13 @@
 
 </head>
 
+
 <body>
+
+
+    <!-- =========================================
+         NAVBAR
+         ========================================= -->
 
     <header class="navbar">
 
@@ -33,11 +42,17 @@
 
         <div class="nav-buttons">
 
-            <a href="/cliente" class="create-button">
+            <a
+                href="/cliente"
+                class="create-button"
+            >
                 Inicio
             </a>
 
-            <a href="/logout" class="signin-button">
+            <a
+                href="/logout"
+                class="signin-button"
+            >
                 Cerrar sesión
             </a>
 
@@ -46,27 +61,66 @@
     </header>
 
 
+
+    <!-- =========================================
+         CONTENIDO PRINCIPAL
+         ========================================= -->
+
     <main class="history-container">
 
-        <h1>
-            Historial de pedidos
-        </h1>
 
+        <!-- ENCABEZADO -->
+
+        <div class="page-header">
+
+            <h1>
+                Historial de pedidos
+            </h1>
+
+            <p>
+                Revisa tus pedidos y solicita devoluciones.
+            </p>
+
+        </div>
+
+
+
+        <!-- PEDIDOS + DETALLE -->
 
         <div class="history-content">
 
-            <section id="orders-list">
 
-                <!-- JavaScript cargará los pedidos aquí -->
+            <!-- =====================================
+                 LISTA DE PEDIDOS
+                 ===================================== -->
+
+            <section class="orders-section">
+
+                <div id="orders-list">
+
+                    <!--
+                        JavaScript cargará los pedidos
+                        provenientes de Flask.
+                    -->
+
+                </div>
 
             </section>
 
 
-            <section id="order-detail">
 
-                <div class="no-orders">
+            <!-- =====================================
+                 DETALLE DEL PEDIDO
+                 ===================================== -->
 
-                    <div class="no-orders-icon">
+            <section
+                id="order-detail"
+                class="order-detail"
+            >
+
+                <div class="detail-placeholder">
+
+                    <div class="placeholder-icon">
                         ◇
                     </div>
 
@@ -83,12 +137,18 @@
 
             </section>
 
+
         </div>
+
 
     </main>
 
 
-    <script src="{{ url_for('static', filename='historial.js') }}"></script>
+
+    <script
+        src="{{ url_for('static', filename='historial.js') }}"
+    ></script>
+
 
 </body>
 

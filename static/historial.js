@@ -3,6 +3,86 @@ const orderDetail = document.getElementById("order-detail");
 
 
 // ==================================================
+// FORMATEAR DINERO
+// ==================================================
+
+function formatearPrecio(valor) {
+
+    return new Intl.NumberFormat("es-CO", {
+        maximumFractionDigits: 0
+    }).format(valor);
+
+}
+
+
+
+// ==================================================
+// FORMATEAR FECHA
+// ==================================================
+
+function formatearFecha(fecha) {
+
+    const fechaObjeto = new Date(fecha);
+
+    return fechaObjeto.toLocaleDateString("es-CO", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+    });
+
+}
+
+
+
+// ==================================================
+// CLASE DEL ESTADO
+// ==================================================
+
+function obtenerClaseEstado(estado) {
+
+    const estadoNormalizado = estado
+        .toLowerCase()
+        .trim();
+
+
+    if (
+        estadoNormalizado === "entregado" ||
+        estadoNormalizado === "completada" ||
+        estadoNormalizado === "completado"
+    ) {
+
+        return "status-entregado";
+
+    }
+
+
+    if (
+        estadoNormalizado === "pendiente" ||
+        estadoNormalizado === "pendiente de entrega"
+    ) {
+
+        return "status-pendiente";
+
+    }
+
+
+    if (
+        estadoNormalizado === "cancelado" ||
+        estadoNormalizado === "cancelada"
+    ) {
+
+        return "status-cancelado";
+
+    }
+
+
+    return "status-default";
+
+}
+
+
+
+// ==================================================
 // MOSTRAR PEDIDOS
 // ==================================================
 
@@ -11,15 +91,23 @@ function mostrarPedidos(pedidos) {
     ordersList.innerHTML = "";
 
 
-    // Si no hay pedidos
-    if (pedidos.length === 0) {
+    // ==============================================
+    // NO HAY PEDIDOS
+    // ==============================================
+
+    if (!pedidos || pedidos.length === 0) {
 
         ordersList.innerHTML = `
+
             <div class="no-orders">
 
-                <div class="no-orders-icon">◇</div>
+                <div class="no-orders-icon">
+                    ◇
+                </div>
 
-                <h2>No tienes pedidos todavía</h2>
+                <h2>
+                    No tienes pedidos todavía
+                </h2>
 
                 <p>
                     Cuando realices una compra,
@@ -27,18 +115,28 @@ function mostrarPedidos(pedidos) {
                 </p>
 
             </div>
+
         `;
 
         return;
     }
 
 
-    // Mostrar pedidos
-    pedidos.forEach(pedido => {
+
+    // ==============================================
+    // CREAR TARJETAS
+    // ==============================================
+
+    pedidos.forEach((pedido, index) => {
 
         const tarjeta = document.createElement("div");
 
         tarjeta.classList.add("order-card");
+
+
+        const claseEstado = obtenerClaseEstado(
+            pedido.estado
+        );
 
 
         tarjeta.innerHTML = `
@@ -54,9 +152,14 @@ function mostrarPedidos(pedidos) {
                     Pedido #${pedido.id_compra}
                 </div>
 
+
                 <div class="order-meta">
 
-                    ${pedido.fecha_compra}
+                    ${formatearFecha(pedido.fecha_compra)}
+
+                    ·
+
+                    ${pedido.cantidad_productos} productos
 
                 </div>
 
@@ -65,12 +168,12 @@ function mostrarPedidos(pedidos) {
 
             <div class="order-price">
 
-                $${pedido.total}
+                $${formatearPrecio(pedido.total)}
 
             </div>
 
 
-            <div class="order-status">
+            <div class="order-status ${claseEstado}">
 
                 ${pedido.estado}
 
@@ -84,18 +187,49 @@ function mostrarPedidos(pedidos) {
         `;
 
 
+
+        // ==========================================
+        // CLICK EN PEDIDO
+        // ==========================================
+
         tarjeta.addEventListener("click", function () {
+
+            document
+                .querySelectorAll(".order-card")
+                .forEach(card => {
+
+                    card.classList.remove("selected");
+
+                });
+
+
+            tarjeta.classList.add("selected");
+
 
             mostrarDetalle(pedido);
 
         });
 
 
+
         ordersList.appendChild(tarjeta);
+
+
+        // Seleccionar automáticamente
+        // el primer pedido
+
+        if (index === 0) {
+
+            tarjeta.classList.add("selected");
+
+            mostrarDetalle(pedido);
+
+        }
 
     });
 
 }
+
 
 
 // ==================================================
@@ -104,15 +238,23 @@ function mostrarPedidos(pedidos) {
 
 function mostrarDetalle(pedido) {
 
+    const productos = pedido.productos || [];
+
+
     orderDetail.innerHTML = `
 
         <h2 class="detail-title">
+
             Detalle del Pedido #${pedido.id_compra}
+
         </h2>
 
 
         <p class="detail-date">
-            Realizado el ${pedido.fecha_compra}
+
+            Realizado el
+            ${formatearFecha(pedido.fecha_compra)}
+
         </p>
 
 
@@ -120,8 +262,13 @@ function mostrarDetalle(pedido) {
 
 
         <p class="products-title">
-            INFORMACIÓN DEL PEDIDO
+
+            PRODUCTOS
+
         </p>
+
+
+        <div id="products-list"></div>
 
 
         <div class="product-row">
@@ -157,7 +304,9 @@ function mostrarDetalle(pedido) {
             </span>
 
             <span class="total-price">
-                $${pedido.total}
+
+                $${formatearPrecio(pedido.total)}
+
             </span>
 
         </div>
@@ -165,14 +314,105 @@ function mostrarDetalle(pedido) {
 
         <button
             class="return-button"
-            onclick="solicitarDevolucion(${pedido.id_compra})"
+            type="button"
+            data-id-compra="${pedido.id_compra}"
         >
+
             Solicitar Devolución
+
         </button>
 
     `;
 
+
+
+    // ==============================================
+    // MOSTRAR PRODUCTOS
+    // ==============================================
+
+    const productsList =
+        document.getElementById("products-list");
+
+
+    if (productos.length === 0) {
+
+        productsList.innerHTML = `
+
+            <div class="product-row">
+
+                <span class="product-name">
+                    No hay productos registrados
+                </span>
+
+            </div>
+
+        `;
+
+    } else {
+
+        productos.forEach(producto => {
+
+            const productoHTML =
+                document.createElement("div");
+
+
+            productoHTML.classList.add("product-row");
+
+
+            productoHTML.innerHTML = `
+
+                <span class="product-name">
+
+                    ${producto.nombre}
+
+                    <span class="product-quantity">
+
+                        x${producto.cantidad}
+
+                    </span>
+
+                </span>
+
+
+                <span class="product-price">
+
+                    $${formatearPrecio(
+                        producto.precio_unitario
+                    )}
+
+                </span>
+
+            `;
+
+
+            productsList.appendChild(productoHTML);
+
+        });
+
+    }
+
+
+
+    // ==============================================
+    // BOTÓN DEVOLUCIÓN
+    // ==============================================
+
+    const returnButton =
+        document.querySelector(".return-button");
+
+
+    returnButton.addEventListener("click", function () {
+
+        const idCompra =
+            this.dataset.idCompra;
+
+
+        solicitarDevolucion(idCompra);
+
+    });
+
 }
+
 
 
 // ==================================================
@@ -181,54 +421,105 @@ function mostrarDetalle(pedido) {
 
 function solicitarDevolucion(idCompra) {
 
-    console.log("Solicitar devolución de:", idCompra);
+    console.log(
+        "Solicitar devolución del pedido:",
+        idCompra
+    );
 
-    // Aquí posteriormente conectaremos
-    // la API de solicitudes de devolución.
+
+    /*
+        Aquí posteriormente conectaremos
+        la pantalla/proceso de devolución.
+
+        El ID del pedido ya está disponible:
+        idCompra
+    */
 
 }
 
 
+
 // ==================================================
-// CONSULTAR PEDIDOS EN EL BACKEND
+// CONSULTAR PEDIDOS EN FLASK
 // ==================================================
 
-fetch("/api/pedidos")
+function cargarPedidos() {
 
-    .then(response => {
+    fetch("/api/pedidos")
 
-        if (!response.ok) {
+        .then(response => {
 
-            throw new Error("No se pudieron obtener los pedidos");
+            if (response.status === 401) {
 
-        }
+                window.location.href = "/";
 
-        return response.json();
+                return;
 
-    })
+            }
 
-    .then(data => {
 
-        mostrarPedidos(data);
+            if (!response.ok) {
 
-    })
+                throw new Error(
+                    "No se pudieron obtener los pedidos"
+                );
 
-    .catch(error => {
+            }
 
-        console.error("Error:", error);
 
-        ordersList.innerHTML = `
-            <div class="no-orders">
+            return response.json();
 
-                <h2>
-                    No se pudieron cargar los pedidos
-                </h2>
+        })
 
-                <p>
-                    Intenta nuevamente más tarde.
-                </p>
 
-            </div>
-        `;
+        .then(data => {
 
-    });
+            if (!data) {
+                return;
+            }
+
+
+            mostrarPedidos(data);
+
+        })
+
+
+        .catch(error => {
+
+            console.error(
+                "Error cargando pedidos:",
+                error
+            );
+
+
+            ordersList.innerHTML = `
+
+                <div class="no-orders">
+
+                    <div class="no-orders-icon">
+                        !
+                    </div>
+
+                    <h2>
+                        No se pudieron cargar los pedidos
+                    </h2>
+
+                    <p>
+                        Intenta nuevamente más tarde.
+                    </p>
+
+                </div>
+
+            `;
+
+        });
+
+}
+
+
+
+// ==================================================
+// INICIAR
+// ==================================================
+
+cargarPedidos();

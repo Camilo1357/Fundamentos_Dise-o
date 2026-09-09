@@ -106,18 +106,18 @@ def register():
         })
 
         user_id = auth_response.user.id
-
+        print(user_id)
         # Crear registro del cliente
         supabase.table("cliente").insert({
             "id_cliente": user_id,
             "nombre": nombre,
             "email": email
         }).execute()
-
+        print(user_id)
         return redirect(url_for("inicio"))
 
     except Exception as e:
-        
+        print(e)
         return redirect(url_for("crear_cuenta"))
 
 

@@ -293,7 +293,7 @@ body {
     font-weight: bold;
 
     color: #333333;
-
+    
     margin-bottom: 7px;
 }
 
@@ -345,50 +345,6 @@ body {
 .input-container input:focus {
 
     border-color: #195544;
-}
-
-
-/* =========================================
-   MOSTRAR CONTRASEÑA
-   ========================================= */
-
-.password-button {
-
-    position: absolute;
-
-    right: 10px;
-
-    background: none;
-
-    border: none;
-
-    cursor: pointer;
-
-    color: #68737a;
-}
-
-
-/* =========================================
-   FORGOT PASSWORD
-   ========================================= */
-
-.forgot-container {
-
-    text-align: right;
-
-    margin-top: -5px;
-
-    margin-bottom: 15px;
-}
-
-
-.forgot-container a {
-
-    color: #16704f;
-
-    text-decoration: none;
-
-    font-size: 10px;
 }
 
 

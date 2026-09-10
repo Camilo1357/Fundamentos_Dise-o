@@ -420,12 +420,7 @@ function mostrarDetalle(pedido) {
 // ==================================================
 
 function solicitarDevolucion(idCompra) {
-
-    console.log(
-        "Solicitar devolución del pedido:",
-        idCompra
-    );
-
+    
 
     /*
         Aquí posteriormente conectaremos

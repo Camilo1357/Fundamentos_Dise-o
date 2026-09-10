@@ -142,7 +142,7 @@ function mostrarPedidos(pedidos) {
         tarjeta.innerHTML = `
 
             <div class="order-icon">
-                ◇
+                🛒
             </div>
 
 

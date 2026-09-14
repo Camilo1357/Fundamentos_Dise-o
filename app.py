@@ -12,30 +12,42 @@ app.secret_key = "clave_secreta_mercadoviva_app"
 
 @app.route("/")
 def inicio():
+
     return render_template("inicio_sesion.html")
 
 
 @app.route("/crear_cuenta")
 def crear_cuenta():
+
     return render_template("crear_cuenta.html")
 
 
 @app.route("/cliente")
 def cliente_view():
+
+    # Verificar que haya una sesión iniciada
+    if "user_id" not in session:
+        return redirect(url_for("inicio"))
+
+    # Verificar que el usuario sea cliente
+    if session.get("tipo_usuario") != "cliente":
+        return redirect(url_for("admin_view"))
+
     return render_template("historial.html")
 
 
 @app.route("/admin")
 def admin_view():
-    return render_template("admin.html")
 
-
-@app.route("/historial")
-def historial():
+    # Verificar que haya una sesión iniciada
     if "user_id" not in session:
         return redirect(url_for("inicio"))
 
-    return render_template("historial.html")
+    # Verificar que el usuario sea administrador
+    if session.get("tipo_usuario") != "admin":
+        return redirect(url_for("cliente_view"))
+
+    return render_template("admin.html")
 
 
 # =========================
@@ -50,19 +62,34 @@ def login():
 
     try:
 
-        # Iniciar sesión en Supabase
+        # ==========================================
+        # 1. INICIAR SESIÓN EN SUPABASE
+        # ==========================================
+
         auth_response = supabase.auth.sign_in_with_password({
             "email": email,
             "password": password
         })
 
-        # Obtener ID del usuario
+
+        # ==========================================
+        # 2. OBTENER ID DEL USUARIO
+        # ==========================================
+
         user_id = auth_response.user.id
 
-        # Guardar usuario en la sesión
+
+        # ==========================================
+        # 3. GUARDAR ID EN LA SESIÓN
+        # ==========================================
+
         session["user_id"] = user_id
 
-        # Verificar si es administrador
+
+        # ==========================================
+        # 4. VERIFICAR SI ES ADMINISTRADOR
+        # ==========================================
+
         admin_check = (
             supabase
             .table("administrador")
@@ -71,18 +98,34 @@ def login():
             .execute()
         )
 
-        # Si es administrador
+
+        # ==========================================
+        # 5. SI ES ADMINISTRADOR
+        # ==========================================
+
         if admin_check.data and len(admin_check.data) > 0:
+
+            session["tipo_usuario"] = "admin"
 
             return redirect(url_for("admin_view"))
 
-        # Si es cliente
+
+        # ==========================================
+        # 6. SI ES CLIENTE
+        # ==========================================
+
         else:
+
+            session["tipo_usuario"] = "cliente"
 
             return redirect(url_for("cliente_view"))
 
+
     except Exception as e:
-        
+
+        print("ERROR AL INICIAR SESIÓN:")
+        print(e)
+
         return jsonify({
             "error": "No has creado una cuenta"
         }), 401
@@ -99,24 +142,47 @@ def register():
     email = request.form.get("email")
     password = request.form.get("password")
 
+
     try:
 
-        # Crear usuario en Supabase Auth
+        # ==========================================
+        # 1. CREAR USUARIO EN SUPABASE AUTH
+        # ==========================================
+
         auth_response = supabase.auth.sign_up({
             "email": email,
             "password": password
         })
 
+
+        # ==========================================
+        # 2. OBTENER ID DEL USUARIO
+        # ==========================================
+
         user_id = auth_response.user.id
-        # Crear registro del cliente
+
+
+        # ==========================================
+        # 3. CREAR REGISTRO DEL CLIENTE
+        # ==========================================
+
         supabase.table("cliente").insert({
+
             "id_cliente": user_id,
             "nombre": nombre,
             "email": email
+
         }).execute()
+
+
         return redirect(url_for("inicio"))
 
+
     except Exception as e:
+
+        print("ERROR AL CREAR CUENTA:")
+        print(e)
+
         return redirect(url_for("crear_cuenta"))
 
 
@@ -127,9 +193,11 @@ def register():
 @app.route("/logout")
 def logout():
 
+    # Eliminar toda la información de sesión
     session.clear()
 
     return redirect(url_for("inicio"))
+
 
 # =========================
 # API - HISTORIAL DE PEDIDOS
@@ -137,6 +205,7 @@ def logout():
 
 @app.route("/api/pedidos", methods=["GET"])
 def api_pedidos():
+
 
     # ==========================================
     # 1. VERIFICAR SESIÓN
@@ -149,55 +218,79 @@ def api_pedidos():
         }), 401
 
 
-    # ID del usuario que inició sesión
+    # ==========================================
+    # 2. VERIFICAR QUE SEA CLIENTE
+    # ==========================================
+
+    if session.get("tipo_usuario") != "cliente":
+
+        return jsonify({
+            "error": "No tienes permiso para consultar los pedidos"
+        }), 403
+
+
+    # ==========================================
+    # 3. OBTENER ID DEL USUARIO
+    # ==========================================
+
     user_id = session["user_id"]
 
 
     try:
 
         # ==========================================
-        # 2. OBTENER LAS COMPRAS DEL CLIENTE
+        # 4. OBTENER LAS COMPRAS DEL CLIENTE
         # ==========================================
 
         compras_response = (
+
             supabase
             .table("compra")
             .select("*")
             .eq("id_cliente", user_id)
             .order("fecha_compra", desc=True)
             .execute()
+
         )
 
 
         compras = compras_response.data or []
 
 
-        # Si no tiene compras
+        # ==========================================
+        # 5. SI NO TIENE COMPRAS
+        # ==========================================
+
         if not compras:
 
             return jsonify([])
 
 
         # ==========================================
-        # 3. OBTENER LOS ID DE LAS COMPRAS
+        # 6. OBTENER ID DE LAS COMPRAS
         # ==========================================
 
         ids_compras = [
+
             compra["id_compra"]
+
             for compra in compras
+
         ]
 
 
         # ==========================================
-        # 4. OBTENER DETALLE_COMPRA
+        # 7. OBTENER DETALLE_COMPRA
         # ==========================================
 
         detalles_response = (
+
             supabase
             .table("detalle_compra")
             .select("*")
             .in_("id_compra", ids_compras)
             .execute()
+
         )
 
 
@@ -205,13 +298,17 @@ def api_pedidos():
 
 
         # ==========================================
-        # 5. OBTENER LOS ID DE LOS PRODUCTOS
+        # 8. OBTENER ID DE LOS PRODUCTOS
         # ==========================================
 
         ids_productos = list({
+
             detalle["id_producto"]
+
             for detalle in detalles
+
             if detalle.get("id_producto") is not None
+
         })
 
 
@@ -221,19 +318,20 @@ def api_pedidos():
         if ids_productos:
 
             productos_response = (
+
                 supabase
                 .table("producto")
                 .select("id_producto, nombre")
                 .in_("id_producto", ids_productos)
                 .execute()
-            )
 
+            )
 
             productos = productos_response.data or []
 
 
         # ==========================================
-        # 6. CREAR DICCIONARIO DE PRODUCTOS
+        # 9. CREAR DICCIONARIO DE PRODUCTOS
         # ==========================================
 
         productos_por_id = {
@@ -246,7 +344,7 @@ def api_pedidos():
 
 
         # ==========================================
-        # 7. AGRUPAR DETALLES POR COMPRA
+        # 10. AGRUPAR DETALLES POR COMPRA
         # ==========================================
 
         detalles_por_compra = {}
@@ -290,7 +388,7 @@ def api_pedidos():
 
 
         # ==========================================
-        # 8. CONSTRUIR RESPUESTA FINAL
+        # 11. CONSTRUIR RESPUESTA FINAL
         # ==========================================
 
         resultado = []
@@ -299,14 +397,28 @@ def api_pedidos():
         for compra in compras:
 
             id_compra = compra["id_compra"]
-            productos_compra = detalles_por_compra.get(id_compra,[])
+
+
+            productos_compra = detalles_por_compra.get(
+                id_compra,
+                []
+            )
+
 
             # Cantidad total de unidades
-            cantidad_productos = sum(producto["cantidad"] for producto in productos_compra)
+            cantidad_productos = sum(
+
+                producto["cantidad"]
+
+                for producto in productos_compra
+
+            )
+
 
             resultado.append({
 
                 # Información de compra
+
                 "id_compra":
                     compra["id_compra"],
 
@@ -327,11 +439,13 @@ def api_pedidos():
 
 
                 # Cantidad de productos
+
                 "cantidad_productos":
                     cantidad_productos,
 
 
-                # Productos de esa compra
+                # Productos
+
                 "productos":
                     productos_compra
 
@@ -339,7 +453,7 @@ def api_pedidos():
 
 
         # ==========================================
-        # 9. DEVOLVER TODO AL JAVASCRIPT
+        # 12. DEVOLVER DATOS AL JAVASCRIPT
         # ==========================================
 
         return jsonify(resultado)
@@ -347,9 +461,14 @@ def api_pedidos():
 
     except Exception as e:
 
+        print("ERROR AL CONSULTAR PEDIDOS:")
+        print(e)
+
         return jsonify({
+
             "error":
                 "No se pudieron consultar los pedidos"
+
         }), 500
 
 
@@ -358,5 +477,5 @@ def api_pedidos():
 # =========================
 
 if __name__ == "__main__":
-    app.run(debug=True)
 
+    app.run(debug=True)

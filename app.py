@@ -8,24 +8,12 @@ from dotenv import load_dotenv
 from database.supabase import supabase
 from database.n8n import enviar_devolucion_n8n
 
-
-# ============================================================
-# CONFIGURACIÓN
-# ============================================================
-
 load_dotenv()
 
 app = Flask(__name__)
 
-app.secret_key = os.getenv(
-    "SECRET_KEY",
-    "clave_secreta_mercadoviva_app"
-)
+app.secret_key = os.getenv("SECRET_KEY","clave_secreta_mercadoviva_app")
 
-
-# ============================================================
-# FUNCIONES AUXILIARES
-# ============================================================
 
 def generar_codigo_devolucion():
     """
@@ -97,10 +85,6 @@ def crear_cuenta():
 # REGISTRO
 # ============================================================
 
-# ============================================================
-# REGISTRO
-# ============================================================
-
 @app.route("/registro", methods=["POST"])
 def registro():
 
@@ -112,7 +96,6 @@ def registro():
 
         datos = request.get_json(silent=True)
 
-        # Si no llega JSON, intentar recibir formulario normal
         if datos is None:
 
             datos = request.form
@@ -128,10 +111,6 @@ def registro():
 
         password = datos.get("password", "").strip()
 
-
-        # ----------------------------------------------------
-        # VALIDACIONES
-        # ----------------------------------------------------
 
         if not nombre or not email or not password:
 
@@ -190,29 +169,17 @@ def registro():
 
         user_id = respuesta_auth.user.id
 
-
-        # ----------------------------------------------------
-        # CREAR CLIENTE EN LA TABLA CLIENTE
-        # ----------------------------------------------------
-
         cliente = (
-
             supabase
-
             .table("cliente")
-
             .insert({
-
                 "id_cliente": user_id,
 
                 "nombre": nombre,
 
                 "email": email
-
             })
-
             .execute()
-
         )
 
 
@@ -232,10 +199,6 @@ def registro():
             }), 500
 
 
-        # ----------------------------------------------------
-        # REGISTRO CORRECTO
-        # ----------------------------------------------------
-
         return jsonify({
 
             "success": True,
@@ -245,10 +208,6 @@ def registro():
 
         })
 
-
-    # ========================================================
-    # ERROR
-    # ========================================================
 
     except Exception as e:
         return jsonify({
@@ -331,8 +290,7 @@ def login():
                 })
 
         except Exception as e:
-
-            print("Error verificando administrador:", e)
+            ...
 
         # ----------------------------------------------------
         # SI NO ES ADMIN, ES CLIENTE
@@ -346,9 +304,6 @@ def login():
         })
 
     except Exception as e:
-
-        print("ERROR EN LOGIN:")
-        print(e)
 
         session.clear()
 
@@ -495,9 +450,6 @@ def obtener_pedidos():
         })
 
     except Exception as e:
-
-        print("ERROR OBTENIENDO PEDIDOS:")
-        print(e)
 
         return jsonify({
             "success": False,
@@ -695,14 +647,6 @@ def crear_solicitud_devolucion():
                 "message": "La compra no tiene productos asociados."
             }), 400
 
-        # ----------------------------------------------------
-        # USAMOS EL PRIMER DETALLE COMO REFERENCIA
-        #
-        # IMPORTANTE:
-        # No modificamos la estructura de la base de datos.
-        # La solicitud guarda id_detalle_compra, pero la
-        # devolución corresponde a la compra completa.
-        # ----------------------------------------------------
 
         id_detalle_compra = detalles[0]["id_detalle_compra"]
 
@@ -781,9 +725,6 @@ def crear_solicitud_devolucion():
         })
 
     except Exception as e:
-
-        print("ERROR CREANDO SOLICITUD DE DEVOLUCIÓN:")
-        print(e)
 
         return jsonify({
             "success": False,
@@ -1019,9 +960,6 @@ def obtener_solicitudes_devolucion():
         })
 
     except Exception as e:
-
-        print("ERROR OBTENIENDO SOLICITUDES:")
-        print(e)
 
         return jsonify({
             "success": False,
@@ -1269,10 +1207,8 @@ def resolver_solicitud(id_solicitud):
 
         else:
 
-            estado_producto = "no valido"
-
+            estado_producto = "incompleto"
             monto_reembolsado = 0
-
             estado_solicitud = "rechazada"
 
         # ----------------------------------------------------
@@ -1350,17 +1286,6 @@ def resolver_solicitud(id_solicitud):
 
         devolucion = devolucion_resultado.data[0]
 
-        # ====================================================
-        # ENVIAR INFORMACIÓN A N8N
-        # ====================================================
-        #
-        # Aquí está la parte nueva.
-        #
-        # Flask crea primero la devolución en Supabase.
-        # Después envía los datos a n8n mediante el Webhook.
-        #
-        # Si n8n falla, NO se elimina la devolución de la BD.
-        # ====================================================
 
         datos_n8n = {
 
@@ -1395,20 +1320,11 @@ def resolver_solicitud(id_solicitud):
             "id_compra": id_compra
         }
 
-        # ----------------------------------------------------
-        # LLAMAR A N8N
-        # ----------------------------------------------------
 
-        n8n_enviado = enviar_devolucion_n8n(
-            datos_n8n
-        )
 
-        # ----------------------------------------------------
-        # RESPUESTA
-        # ----------------------------------------------------
+        n8n_enviado = enviar_devolucion_n8n(datos_n8n)
 
         return jsonify({
-
             "success": True,
 
             "message": (
@@ -1423,7 +1339,6 @@ def resolver_solicitud(id_solicitud):
             ),
 
             "n8n_enviado": n8n_enviado
-
         })
 
     except Exception as e:
@@ -1431,11 +1346,6 @@ def resolver_solicitud(id_solicitud):
             "success": False,
             "message": "Ocurrió un error al procesar la devolución."
         }), 500
-
-
-# ============================================================
-# EJECUCIÓN
-# ============================================================
 
 if __name__ == "__main__":
 

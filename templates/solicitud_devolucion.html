@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        Mercado VIVA - Solicitar devolución
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/solicitud_devolucion.css') }}">
+
+</head>
+
+
+<body>
+
+    <!-- =========================================
+         NAVBAR
+         ========================================= -->
+
+    <header class="navbar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                <span></span>
+            </div>
+
+            <h2>
+                MERCADO VIVA
+            </h2>
+
+        </div>
+
+
+        <div class="nav-buttons">
+
+            <a
+                href="/cliente"
+                class="back-button">
+
+                Volver
+
+            </a>
+
+
+            <a
+                href="/logout"
+                class="logout-button">
+
+                Cerrar sesión
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         CONTENIDO
+         ========================================= -->
+
+    <main class="return-container">
+
+        <div class="return-card">
+
+
+            <!-- TÍTULO -->
+
+            <h1>
+                Solicitar devolución
+            </h1>
+
+
+            <p class="subtitle">
+                Solicita la devolución completa de tu compra.
+            </p>
+
+
+            <!-- =================================
+                 COMPRA
+                 ================================= -->
+
+            <div class="section-title">
+                COMPRA
+            </div>
+
+
+            <div class="order-info">
+
+                <div class="order-icon">
+                    🛒
+                </div>
+
+
+                <div class="order-data">
+
+                    <h2 id="order-name">
+                        Cargando compra...
+                    </h2>
+
+                    <p id="order-details">
+                        Cargando información...
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================
+                 FORMULARIO
+                 ================================= -->
+
+            <form id="return-form">
+
+
+                <div class="form-group">
+
+                    <label for="motivo">
+                        Motivo de la devolución
+                    </label>
+
+
+                    <textarea
+                        id="motivo"
+                        name="motivo"
+                        maxlength="255"
+                        placeholder="Explica por qué deseas devolver la compra..."
+                        required></textarea>
+
+
+                    <div class="characters">
+                        Máximo 255 caracteres
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                    id="submit-return">
+
+                    Solicitar devolución
+
+                </button>
+
+
+                <p id="return-result"></p>
+
+
+            </form>
+
+        </div>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script
+        src="{{ url_for('static', filename='js/solicitud_devolucion.js') }}">
+    </script>
+
+</body>
+
+</html>

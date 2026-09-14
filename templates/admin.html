@@ -2,43 +2,46 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
 
-    <title>Mercado VIVA - Administrador</title>
+    <title>
+        Mercado VIVA - Administrador
+    </title>
 
-    <!-- Conectamos el CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/admin.css') }}">
+
 </head>
 
 
 <body>
 
 
-    <!-- ==================================================
-         BARRA SUPERIOR
-         ================================================== -->
+    <!-- =========================================
+         NAVBAR
+         ========================================= -->
 
     <header class="navbar">
 
-        <!-- Logo y nombre -->
         <div class="logo">
 
             <div class="logo-icon">
                 <span></span>
             </div>
 
-            <h2>MERCADO VIVA</h2>
-
-            <span class="admin-badge">
-                ADMIN Panel
-            </span>
+            <h2>
+                MERCADO VIVA
+            </h2>
 
         </div>
 
 
-        <!-- Usuario -->
         <div class="admin-user">
 
             <div class="user-circle">
@@ -49,8 +52,12 @@
                 Admin Vista
             </span>
 
-            <a href="/logout" class="logout-button">
+            <a
+                href="/logout"
+                class="logout-button">
+
                 Cerrar sesión
+
             </a>
 
         </div>
@@ -58,119 +65,74 @@
     </header>
 
 
+    <!-- =========================================
+         CONTENIDO
+         ========================================= -->
 
-    <!-- ==================================================
-         CONTENIDO PRINCIPAL
-         ================================================== -->
-
-    <main class="main-container">
-
-
-        <h1>
-            Solicitudes de Devolución
-        </h1>
+    <main class="admin-container">
 
 
-        <div class="content">
+        <div class="page-header">
+
+            <div>
+
+                <h1>
+                    Panel de administración
+                </h1>
+
+                <p>
+                    Gestiona las solicitudes de devolución de los clientes.
+                </p>
+
+            </div>
+
+        </div>
 
 
-            <!-- ==================================================
-                 PARTE IZQUIERDA
-                 LISTA DE SOLICITUDES
-                 ================================================== -->
+        <!-- =========================================
+             SOLICITUDES
+             ========================================= -->
 
-            <section class="requests-section">
-
-                <!-- Encabezados de la tabla -->
-                <div class="table-header">
-
-                    <span>ID Solicitud</span>
-
-                    <span>Fecha</span>
-
-                    <span>Cliente</span>
-
-                    <span>Producto</span>
-
-                    <span>Motivo</span>
-
-                </div>
+        <section class="solicitudes-section">
 
 
-                <!--
+            <div class="section-header">
 
-                    JavaScript va a introducir aquí
-                    todas las solicitudes pendientes.
+                <div>
 
-                -->
-                <div id="requests-list"></div>
-
-
-                <!-- Mensaje que aparecerá cuando
-                     no queden solicitudes -->
-
-                <div
-                    id="empty-message"
-                    class="empty-message hidden">
-
-                    <div class="empty-icon">
-                        ✓
-                    </div>
+                    <h2>
+                        Solicitudes de devolución
+                    </h2>
 
                     <p>
-                        No hay solicitudes pendientes.
+                        Revisa y procesa las solicitudes pendientes.
                     </p>
 
                 </div>
 
-            </section>
+            </div>
 
 
+            <div id="solicitudes-list">
 
-            <!-- ==================================================
-                 PARTE DERECHA
-                 DETALLE DE LA SOLICITUD
-                 ================================================== -->
+                <div class="loading">
 
-            <section class="detail-card">
-
-                <h2>
-                    Detalle de Solicitud
-                </h2>
-
-                <p class="detail-description">
-                    Estructura de inspección física y resolución.
-                </p>
-
-
-                <!-- Aquí aparecerá la información -->
-                <div id="detail-content">
-
-                    <div class="no-selection">
-
-                        <div class="selection-icon">
-                            ▣
-                        </div>
-
-                        <p>
-                            Selecciona una solicitud para ver
-                            los detalles estructurales.
-                        </p>
-
-                    </div>
+                    Cargando solicitudes...
 
                 </div>
 
-            </section>
+            </div>
 
-        </div>
+
+        </section>
+
 
     </main>
 
 
-
-    <!-- JavaScript -->
-    <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+    <script
+        src="{{ url_for('static', filename='js/admin.js') }}">
+    </script>
 
 </body>
 

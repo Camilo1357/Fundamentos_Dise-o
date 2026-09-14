@@ -1,0 +1,531 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+   ========================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fafaf7;
+    color: #183f35;
+}
+
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+.navbar {
+    height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 80px;
+
+    background-color: #ffffff;
+
+    border-bottom: 1px solid #eeeeee;
+}
+
+
+/* =========================================
+   LOGO
+   ========================================= */
+
+.logo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.logo h2 {
+    font-size: 20px;
+
+    letter-spacing: 0.5px;
+}
+
+
+/* Icono del logo */
+
+.logo-icon {
+    width: 30px;
+    height: 30px;
+
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Cuerpo naranja */
+
+.logo-icon::before {
+    content: "";
+
+    width: 15px;
+    height: 18px;
+
+    background-color: #e85535;
+
+    border-radius: 50% 50% 45% 45%;
+}
+
+
+/* Hoja verde */
+
+.logo-icon::after {
+    content: "";
+
+    position: absolute;
+
+    width: 7px;
+    height: 4px;
+
+    background-color: #4c9a62;
+
+    top: 2px;
+    right: 4px;
+
+    border-radius: 100% 0;
+}
+
+
+/* =========================================
+   BOTONES DE LA NAVBAR
+   ========================================= */
+
+.nav-buttons {
+    display: flex;
+
+    gap: 10px;
+
+    margin-left: 40px;
+}
+
+
+.nav-buttons a {
+    padding: 9px 16px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+
+/* Botón volver */
+
+.back-button {
+
+    background-color: white;
+
+    border: 1px solid #dddddd;
+
+    color: #222222;
+}
+
+
+.back-button:hover {
+
+    background-color: #f5f5f5;
+}
+
+
+/* Botón cerrar sesión */
+
+.logout-button {
+
+    background-color: #195544;
+
+    border: 1px solid #195544;
+
+    color: white;
+}
+
+
+.logout-button:hover {
+
+    background-color: #124436;
+}
+
+
+/* =========================================
+   CONTENEDOR PRINCIPAL
+   ========================================= */
+
+.return-container {
+
+    max-width: 805px;
+
+    margin: 48px auto 60px;
+
+    display: flex;
+
+    justify-content: center;
+
+    position: relative;
+}
+
+
+/* =========================================
+   TARJETA DE DEVOLUCIÓN
+   ========================================= */
+
+.return-card {
+
+    width: 430px;
+
+    min-height: 390px;
+
+    background-color: white;
+
+    border: 1px solid #e5e5e5;
+
+    border-radius: 16px;
+
+    padding: 35px 26px;
+
+    position: relative;
+
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   TÍTULO
+   ========================================= */
+
+.return-card h1 {
+
+    text-align: center;
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+
+    color: #183f35;
+}
+
+
+/* Texto debajo del título */
+
+.subtitle {
+
+    text-align: center;
+
+    font-size: 10px;
+
+    color: #737373;
+
+    margin-bottom: 22px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================
+   TÍTULO DE SECCIÓN
+   ========================================= */
+
+.section-title {
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    color: #333333;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================
+   INFORMACIÓN DE LA COMPRA
+   ========================================= */
+
+.order-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    padding: 13px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid #e0e0e0;
+
+    border-radius: 10px;
+
+    background-color: #ffffff;
+}
+
+
+/* Icono de compra */
+
+.order-icon {
+
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background-color: #edf5f1;
+
+    font-size: 17px;
+}
+
+
+/* Información */
+
+.order-data {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.order-data h2 {
+
+    font-size: 12px;
+
+    color: #333333;
+
+    margin-bottom: 5px;
+}
+
+
+.order-data p {
+
+    font-size: 9px;
+
+    color: #888888;
+}
+
+
+/* =========================================
+   FORMULARIO
+   ========================================= */
+
+.form-group {
+
+    margin-bottom: 15px;
+}
+
+
+.form-group label {
+
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    color: #333333;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================
+   TEXTAREA
+   ========================================= */
+
+textarea {
+
+    width: 100%;
+
+    height: 100px;
+
+    resize: vertical;
+
+    border: 1px solid #e0e0e0;
+
+    border-radius: 10px;
+
+    padding: 11px;
+
+    outline: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    color: #333333;
+}
+
+
+textarea:focus {
+
+    border-color: #195544;
+}
+
+
+textarea::placeholder {
+
+    color: #aaaaaa;
+}
+
+
+/* =========================================
+   TEXTO DE CARACTERES
+   ========================================= */
+
+.characters {
+
+    font-size: 9px;
+
+    color: #999999;
+
+    margin-top: 5px;
+
+    text-align: right;
+}
+
+
+/* =========================================
+   BOTÓN SOLICITAR
+   ========================================= */
+
+.submit-button {
+
+    width: 100%;
+
+    height: 38px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background-color: #195544;
+
+    color: white;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.submit-button:hover {
+
+    background-color: #124436;
+}
+
+
+.submit-button:disabled {
+
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+
+/* =========================================
+   RESULTADO
+   ========================================= */
+
+#return-result {
+
+    text-align: center;
+
+    font-size: 10px;
+
+    margin-top: 10px;
+
+    min-height: 15px;
+}
+
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 800px) {
+
+    .navbar {
+
+        padding: 0 20px;
+    }
+
+
+    .return-container {
+
+        margin: 30px 20px;
+    }
+
+
+    .return-card {
+
+        width: 100%;
+
+        max-width: 430px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .logo h2 {
+
+        font-size: 15px;
+    }
+
+
+    .nav-buttons {
+
+        gap: 6px;
+
+        margin-left: auto;
+    }
+
+
+    .nav-buttons a {
+
+        padding: 8px 11px;
+
+        font-size: 9px;
+    }
+
+
+    .return-container {
+
+        margin: 25px 15px;
+    }
+
+
+    .return-card {
+
+        padding: 28px 22px;
+    }
+
+}

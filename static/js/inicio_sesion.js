@@ -20,13 +20,13 @@ botonPassword.addEventListener("click", function () {
 
         password.type = "text";
 
-        botonPassword.textContent= "◎"
+        botonPassword.textContent = "◎";
 
     } else {
 
         password.type = "password";
 
-        botonPassword.textContent = "◉"
+        botonPassword.textContent = "◉";
 
     }
 
@@ -37,55 +37,68 @@ botonPassword.addEventListener("click", function () {
 // LOGIN
 // ==========================================
 
-formulario.addEventListener("submit", function (event) {
+formulario.addEventListener("submit", async function (event) {
 
     event.preventDefault();
 
-
     const datos = new FormData(formulario);
-
 
     resultado.textContent = "";
 
+    try {
 
-    fetch("/login", {
+        const response = await fetch("/login", {
 
-        method: "POST",
+            method: "POST",
 
-        body: datos
+            body: datos
 
-    })
+        });
 
-    .then(async response => {
+        const data = await response.json();
 
 
+        // ==========================================
         // LOGIN CORRECTO
-        if (response.redirected) {
+        // ==========================================
 
-            window.location.href = response.url;
+        if (response.ok && data.success) {
+
+            window.location.href = data.redirect;
 
             return;
+
         }
 
 
+        // ==========================================
         // LOGIN INCORRECTO
+        // ==========================================
+
         if (response.status === 401) {
 
-            const data = await response.json();
-
-            resultado.textContent = data.error;
+            resultado.textContent =
+                data.message || "Correo o contraseña incorrectos.";
 
             return;
+
         }
 
 
+        // ==========================================
         // OTRO ERROR
-        if (!response.ok) {
+        // ==========================================
 
-            throw new Error(
-                "Error al iniciar sesión"
-            );
-        }
+        resultado.textContent =
+            data.message || "Ocurrió un error al iniciar sesión.";
 
-    })
+    } catch (error) {
+
+        console.error("ERROR EN LOGIN:", error);
+
+        resultado.textContent =
+            "No se pudo conectar con el servidor.";
+
+    }
+
 });
